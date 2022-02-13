@@ -1,6 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>upload-labs前三关通关详解</title>
+    <url>/2022/02/13/upload-labs%E5%89%8D%E4%B8%89%E5%85%B3%E9%80%9A%E5%85%B3%E8%AF%A6%E8%A7%A3/</url>
+    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/aebf8b274aaa45cd81450c62515979a0.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
+<p>&emsp;&emsp;这个upload-labs是由php语言来编写的，主要是为了让大家对漏洞上传有一定的认识。有兴趣的小伙伴可以看我以前的贴子，里面有较为详细的安装步骤。ok，来看题。</p>
+<h1 id="pass-1"><a href="#pass-1" class="headerlink" title="pass-1"></a>pass-1</h1><hr>
+<p>&emsp;&emsp;<strong>webshell</strong>，顾名思义：web指的是在web服务器上，而shell是用脚本语言编写的脚本程序，webshell就是就是web的一个管理工具，可以对web服务器进行操作的权限，也叫webadmin。webshell一般是被网站管理员用于网站管理、服务器管理等等一些用途，但是由于webshell的功能比较强大，可以上传下载文件，查看数据库，甚至可以调用一些服务器上系统的相关命令（比如创建用户，修改删除文件之类的），通常被黑客利用，黑客通过一些上传方式，将自己编写的webshell上传到web服务器的页面的目录下，然后通过页面访问的形式进行入侵，或者通过插入一句话连接本地的一些相关工具直接对服务器进行入侵操作。</p>
+<p>&emsp;&emsp;而上传webshell我知道的方法有4种，1.解析漏洞上传，2.截断上传，3.后台数据库备份，4.利用数据库语句上传。其他的不多说链接放在这里:<a href="https://blog.csdn.net/qq_42357070/article/details/82881393?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164448070216780271541972%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=164448070216780271541972&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_ulrmf~default-4-82881393.pc_search_insert_ulrmf&utm_term=webshell&spm=1018.2226.3001.4187">这个真的是超详细</a></p>
+<h2 id="继续讲题"><a href="#继续讲题" class="headerlink" title="继续讲题"></a>继续讲题</h2><hr>
+<p>&emsp;&emsp;所以这里上传webshell就是上传一句话木马，先上传一个图片试试</p>
+<p><img src="https://img-blog.csdnimg.cn/c313acfde2b741bea9a81ef26971437b.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
+<p>&emsp;&emsp;发现完全ok，然后将包含一句话的文档上传 ，结果发现不行</p>
+<p><img src="https://img-blog.csdnimg.cn/5151ae1c902a46aba86118b20eaeaf53.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_19,color_FFFFFF,t_70,g_se,x_16"><br><img src="https://img-blog.csdnimg.cn/60c0fa4d1d204e959c51aab8643574d2.png"></p>
+<p>&emsp;&emsp;因为说是只能上传后缀为.jpg|.png|.gif类型的文件，所以使用burp进行抓包</p>
+<p><img src="https://img-blog.csdnimg.cn/d7afe095a4684b23a52d86e75bac049c.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_13,color_FFFFFF,t_70,g_se,x_16"></p>
+<p>&emsp;&emsp;然后将.jpg改为.php<font color=#FF0000>  <strong>forward</strong> </font>上传即可。</p>
+<h2 id="pass-2"><a href="#pass-2" class="headerlink" title="pass-2"></a>pass-2</h2><hr>
+<p>&emsp;&emsp;Content-Type 实体头部用于指示资源的MIME类型。</p>
+<p>&emsp;&emsp;media type ,在响应中，Content-Type标头告诉客户端实际返回的内容的内容类型。</p>
+<p>&emsp;&emsp;首先先上传一下php文件，因为用的和第一关一样，所以没有反应， 然后重新写一个上传发现是类型不对。</p>
+<p><img src="https://img-blog.csdnimg.cn/e7a04c7b87fb40f5a184bb7ee2f29c21.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_16,color_FFFFFF,t_70,g_se,x_16"></p>
+<p>&emsp;&emsp;然后还是使用burp抓包处理 </p>
+<p><img src="https://img-blog.csdnimg.cn/12d2505384224cd1b5c553214aa01fab.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_15,color_FFFFFF,t_70,g_se,x_16"></p>
+<p>&emsp;&emsp;将png改为php </p>
+<p><img src="https://img-blog.csdnimg.cn/7a5bb98970dc45ab92c44ea86a9e272b.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
+<p>&emsp;&emsp;最后上传成功 。</p>
+<h1 id="pass-3"><a href="#pass-3" class="headerlink" title="pass-3"></a>pass-3</h1><hr>
+<p>&emsp;&emsp;首先还是上传一个php文件</p>
+<p><img src="https://img-blog.csdnimg.cn/6fe188f9a6b84c0d9245aef434e040c3.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
+<p>&emsp;&emsp;可以看到这一关是不允许上传.asp,.aspx,.php,.jsp后缀文件 做了黑名单验证，但是我们可以通过其他形式绕过，比如.php、.phtml、.phps、.php5、.pht等类似的格式来绕过，所以可以通过修改文件后缀来上传。</p>
+<p><img src="https://img-blog.csdnimg.cn/f28fbf42f5da48309df96a0b6cc18ef4.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_16,color_FFFFFF,t_70,g_se,x_16"></p>
+<p>&emsp;&emsp;这样就是上传成功了。 </p>
+<p>&emsp;&emsp;如果想要验证也可以，这是我第二关中php文件中的内容</p>
+<p><img src="https://img-blog.csdnimg.cn/3d13ec9a5cd343be90fbfd423efe0e77.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_17,color_FFFFFF,t_70,g_se,x_16"></p>
+<p>&emsp;&emsp;抓包上传后可以 将图片用另一个页面打开</p>
+<p><img src="https://img-blog.csdnimg.cn/1ad4ca38bccd47dba7f8a15305103c33.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
+<p>&emsp;&emsp;可以看出来这个页面就是我图片中的内容</p>
+]]></content>
+      <tags>
+        <tag>题解</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello World</title>
     <url>/2022/01/11/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
@@ -42,48 +84,6 @@
 ]]></content>
       <tags>
         <tag>环境搭建</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>upload-labs前三关通关详解</title>
-    <url>/2022/02/13/upload-labs%E5%89%8D%E4%B8%89%E5%85%B3%E9%80%9A%E5%85%B3%E8%AF%A6%E8%A7%A3/</url>
-    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/aebf8b274aaa45cd81450c62515979a0.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
-<p>&emsp;&emsp;这个upload-labs是由php语言来编写的，主要是为了让大家对漏洞上传有一定的认识。有兴趣的小伙伴可以看我以前的贴子，里面有较为详细的安装步骤。ok，来看题。</p>
-<h1 id="pass-1"><a href="#pass-1" class="headerlink" title="pass-1"></a>pass-1</h1><hr>
-<p>&emsp;&emsp;<strong>webshell</strong>，顾名思义：web指的是在web服务器上，而shell是用脚本语言编写的脚本程序，webshell就是就是web的一个管理工具，可以对web服务器进行操作的权限，也叫webadmin。webshell一般是被网站管理员用于网站管理、服务器管理等等一些用途，但是由于webshell的功能比较强大，可以上传下载文件，查看数据库，甚至可以调用一些服务器上系统的相关命令（比如创建用户，修改删除文件之类的），通常被黑客利用，黑客通过一些上传方式，将自己编写的webshell上传到web服务器的页面的目录下，然后通过页面访问的形式进行入侵，或者通过插入一句话连接本地的一些相关工具直接对服务器进行入侵操作。</p>
-<p>&emsp;&emsp;而上传webshell我知道的方法有4种，1.解析漏洞上传，2.截断上传，3.后台数据库备份，4.利用数据库语句上传。其他的不多说链接放在这里:<a href="https://blog.csdn.net/qq_42357070/article/details/82881393?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164448070216780271541972%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=164448070216780271541972&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_ulrmf~default-4-82881393.pc_search_insert_ulrmf&utm_term=webshell&spm=1018.2226.3001.4187">这个真的是超详细</a></p>
-<h2 id="继续讲题"><a href="#继续讲题" class="headerlink" title="继续讲题"></a>继续讲题</h2><hr>
-<p>&emsp;&emsp;所以这里上传webshell就是上传一句话木马，先上传一个图片试试</p>
-<p><img src="https://img-blog.csdnimg.cn/c313acfde2b741bea9a81ef26971437b.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
-<p>&emsp;&emsp;发现完全ok，然后将包含一句话的文档上传 ，结果发现不行</p>
-<p><img src="https://img-blog.csdnimg.cn/5151ae1c902a46aba86118b20eaeaf53.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_19,color_FFFFFF,t_70,g_se,x_16"><br><img src="https://img-blog.csdnimg.cn/60c0fa4d1d204e959c51aab8643574d2.png"></p>
-<p>&emsp;&emsp;因为说是只能上传后缀为.jpg|.png|.gif类型的文件，所以使用burp进行抓包</p>
-<p><img src="https://img-blog.csdnimg.cn/d7afe095a4684b23a52d86e75bac049c.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_13,color_FFFFFF,t_70,g_se,x_16"></p>
-<p>&emsp;&emsp;然后将.jpg改为.php<font color=#FF0000>  <strong>forward</strong> </font>上传即可。</p>
-<h2 id="pass-2"><a href="#pass-2" class="headerlink" title="pass-2"></a>pass-2</h2><hr>
-<p>&emsp;&emsp;Content-Type 实体头部用于指示资源的MIME类型。</p>
-<p>&emsp;&emsp;media type ,在响应中，Content-Type标头告诉客户端实际返回的内容的内容类型。</p>
-<p>&emsp;&emsp;首先先上传一下php文件，因为用的和第一关一样，所以没有反应， 然后重新写一个上传发现是类型不对。</p>
-<p><img src="https://img-blog.csdnimg.cn/e7a04c7b87fb40f5a184bb7ee2f29c21.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_16,color_FFFFFF,t_70,g_se,x_16"></p>
-<p>&emsp;&emsp;然后还是使用burp抓包处理 </p>
-<p><img src="https://img-blog.csdnimg.cn/12d2505384224cd1b5c553214aa01fab.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_15,color_FFFFFF,t_70,g_se,x_16"></p>
-<p>&emsp;&emsp;将png改为php </p>
-<p><img src="https://img-blog.csdnimg.cn/7a5bb98970dc45ab92c44ea86a9e272b.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
-<p>&emsp;&emsp;最后上传成功 。</p>
-<h1 id="pass-3"><a href="#pass-3" class="headerlink" title="pass-3"></a>pass-3</h1><hr>
-<p>&emsp;&emsp;首先还是上传一个php文件</p>
-<p><img src="https://img-blog.csdnimg.cn/6fe188f9a6b84c0d9245aef434e040c3.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
-<p>&emsp;&emsp;可以看到这一关是不允许上传.asp,.aspx,.php,.jsp后缀文件 做了黑名单验证，但是我们可以通过其他形式绕过，比如.php、.phtml、.phps、.php5、.pht等类似的格式来绕过，所以可以通过修改文件后缀来上传。</p>
-<p><img src="https://img-blog.csdnimg.cn/f28fbf42f5da48309df96a0b6cc18ef4.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_16,color_FFFFFF,t_70,g_se,x_16"></p>
-<p>&emsp;&emsp;这样就是上传成功了。 </p>
-<p>&emsp;&emsp;如果想要验证也可以，这是我第二关中php文件中的内容</p>
-<p><img src="https://img-blog.csdnimg.cn/3d13ec9a5cd343be90fbfd423efe0e77.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_17,color_FFFFFF,t_70,g_se,x_16"></p>
-<p>&emsp;&emsp;抓包上传后可以 将图片用另一个页面打开</p>
-<p><img src="https://img-blog.csdnimg.cn/1ad4ca38bccd47dba7f8a15305103c33.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
-<p>&emsp;&emsp;可以看出来这个页面就是我图片中的内容</p>
-]]></content>
-      <tags>
-        <tag>题解</tag>
       </tags>
   </entry>
 </search>
