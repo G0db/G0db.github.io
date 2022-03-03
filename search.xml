@@ -1,6 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Hello World</title>
+    <url>/2022/01/11/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>HTML学习</title>
+    <url>/2022/03/03/HTML%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[<h1 id="一、web标准的构成"><a href="#一、web标准的构成" class="headerlink" title="一、web标准的构成"></a>一、web标准的构成</h1><hr>
+<table>
+<thead>
+<tr>
+<th>构成</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>结构</td>
+<td>用于对网页元素进行整理和分类，现阶段主要学的是<font color=#00ffff>HTML</font></td>
+</tr>
+<tr>
+<td>表现</td>
+<td>用于设置网页元素的版式、颜色、大小等<font color=#00ffff><strong>外观样式</strong></font> ，主要指的是<font color=#00ffff>css</font></td>
+</tr>
+<tr>
+<td>行为</td>
+<td>是指网页模型的定义及交互的编写，现阶段主要学的是<font color=#00ffff>javascript(js)</font></td>
+</tr>
+</tbody></table>
+<h1 id="二、HTML语法规划"><a href="#二、HTML语法规划" class="headerlink" title="二、HTML语法规划"></a>二、HTML语法规划</h1><hr>
+<blockquote>
+<ul>
+<li>HTML标签是由尖括号包围的关键词，例如<html>。</li>
+</ul>
+</blockquote>
+<ul>
+<li>HTML标签通常是成对存在的，例如<html> </html>,称为双标签。标签对中第一个是开始标签，第二个是结束标签。</li>
+<li>有极少的为单标签,如&#60;br&emsp;/&#62;<h2 id="标签关系"><a href="#标签关系" class="headerlink" title="标签关系"></a>标签关系</h2></li>
+</ul>
+<hr>
+<h3 id="包含关系"><a href="#包含关系" class="headerlink" title="包含关系"></a>包含关系</h3><hr>
+<p>&#60; head &#62;<br><br> &emsp; &#60;title&#62;&#60;/title&#62;<br><br>&#60;/head&#62;</p>
+<h3 id="并列关系"><a href="#并列关系" class="headerlink" title="并列关系"></a>并列关系</h3><hr>
+<p>&#60; head &#62;&#60;/head&#62;<br><br>&emsp; &#60;body&#62;&#60;/body&#62;</p>
+<h1 id="结构标签"><a href="#结构标签" class="headerlink" title="结构标签"></a>结构标签</h1><p>&emsp;&emsp;每个网页都会有一个基本的结构标签（也称骨架标签），页面内容也是在这些基本标签上书写的。</p>
+<table>
+<thead>
+<tr>
+<th>&#60; html &#62;&#60;/html&#62;</th>
+<th>HTML标签</th>
+<th>页面中最大的标签，称为根标签。</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&#60; head &#62;&#60;/head&#62;</td>
+<td>文档的头部</td>
+<td>在head标签中必须设置title标签。</td>
+</tr>
+<tr>
+<td>&#60;title&#62;&#60;/title&#62;</td>
+<td>文档的标题</td>
+<td>让页面拥有一个属于自己的标题。</td>
+</tr>
+<tr>
+<td>&#60;body&#62;&#60;/body&#62;</td>
+<td>文档的主体</td>
+<td>元素包含文档的所有内容，页面的基本内容都在body里面。</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>&#60;!DOCTYPE&#62;文档类型声明，作用是告诉浏览器使用哪种HTML版本显示<br><br>如：<!doctype html><br><br>&lt;!DOCTYPE&gt;声明位于文档中最前面的位置，处于<html>标签之前，而且不属于html标签。<br>lang 用来定义当前文档显示的语言，告诉浏览器或搜索引擎这是哪种语言的网站。<br>字符集(Character set)是多个字符的集合，以便计算机能够识别和储备各种文字。 <br><br>charset常用的值有：GB2312，BIG5,GBK和UTF-8，其中UTF-8也被称为万国码，基本包含了所有国家需要用到的字符<br><br>如何&#60;mata charset=”UTF-8”&#62;</p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>HTML</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>upload-labs和sql-labs环境搭建</title>
     <url>/2022/02/06/upload-labs%E5%92%8Csql-labs%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
     <content><![CDATA[<h2 id="一-upload-labs环境搭建"><a href="#一-upload-labs环境搭建" class="headerlink" title="一.upload-labs环境搭建"></a>一.upload-labs环境搭建</h2><p><a href="https://www.xp.cn/download.html"> phpstudy下载后直接安装就行了。</a></p>
@@ -67,23 +157,5 @@
       <tags>
         <tag>题解</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2022/01/11/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
   </entry>
 </search>
