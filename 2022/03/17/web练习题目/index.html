@@ -1,0 +1,197 @@
+
+<!DOCTYPE html>
+<html lang="en" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>web练习题目 - S@Kura</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Fechin,"> 
+    <meta name="description" content="xff_referer
+题目中提到了xff和referer，由于并不了解所以百度一下看看基本意思。
+
+X-Forwarded-For(XFF)是用来识别通过HTTP代理或负载均衡方式连接到Web服务,"> 
+    <meta name="author" content="John Doe"> 
+    <link rel="alternative" href="atom.xml" title="S@Kura" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+    
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="web练习题目 - S@Kura"/>
+    <meta name="twitter:description" content="xff_referer
+题目中提到了xff和referer，由于并不了解所以百度一下看看基本意思。
+
+X-Forwarded-For(XFF)是用来识别通过HTTP代理或负载均衡方式连接到Web服务,"/>
+    
+    
+    
+    
+    <meta property="og:site_name" content="S@Kura"/>
+    <meta property="og:type" content="object"/>
+    <meta property="og:title" content="web练习题目 - S@Kura"/>
+    <meta property="og:description" content="xff_referer
+题目中提到了xff和referer，由于并不了解所以百度一下看看基本意思。
+
+X-Forwarded-For(XFF)是用来识别通过HTTP代理或负载均衡方式连接到Web服务,"/>
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">S@Kura</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://example.com"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">web练习题目</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">web练习题目</h1>
+        <div class="stuff">
+            <span>三月 17, 2022</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E9%A2%98%E8%A7%A3/" rel="tag">题解</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h1 id="xff-referer"><a href="#xff-referer" class="headerlink" title="xff_referer"></a>xff_referer</h1><hr>
+<p><img src="https://img-blog.csdnimg.cn/b721f325fef04dd582ba8f74ef62cabf.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"><br><br>题目中提到了xff和referer，由于并不了解所以百度一下看看基本意思。</p>
+<blockquote>
+<p><strong>X-Forwarded-For</strong>(XFF)是用来识别通过HTTP代理或负载均衡方式连接到Web服务器的客户端最原始的IP地址的HTTP请求头字段。<br><br> <strong>HTTP Referer</strong>是header的一部分，当浏览器向web服务器发送请求的时候，一般会带上Referer，告诉服务器该网页是从哪个页面链接过来的，服务器因此可以获得一些信息用于处理。</p>
+</blockquote>
+<p> &emsp;&emsp;简单地说，xff是告诉服务器当前请求者的最终ip的http请求头字段通常可以直接通过修改http头中的X-Forwarded-For字段来仿造请求的最终ip。referer就是告诉服务器当前访问者是从哪个url地址跳转到自己的，跟xff一样，referer也可直接修改。<br><br>&emsp;&emsp;所以使用burp对页面进行拦截<br><img src="https://img-blog.csdnimg.cn/6b19443e051f402e8c796df73d971e17.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"><br>&emsp;&emsp;页面也说明了ip地址，所以在下面加上<br><br><img src="https://img-blog.csdnimg.cn/7199c217b2524a1a86a046c5a80da976.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"><br><br>&emsp;&emsp;然后forward，页面发生改变<br><img src="https://img-blog.csdnimg.cn/24998077b98d4303ba531dfdce9353a3.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"><br><br>&emsp;&emsp;所以抓包,然后在下面加上</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">X-Forwarded-For:123.123.123.123</span><br><span class="line">Referer:https://www.google.com</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/fd3ab8c8c1e54099b6e95065156de48a.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"><br><br>&emsp;&emsp;发送，得出flag。</p>
+<h1 id="simple-js"><a href="#simple-js" class="headerlink" title="simple_js"></a>simple_js</h1><hr>
+<p>打开网页发现需要输入密码，因为不知道，所以随便输入 。<br><img src="https://img-blog.csdnimg.cn/324a51f2a48649229531facd571c145e.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"><br><br>结果肯定是错了，查看源代码。<br><img src="https://img-blog.csdnimg.cn/9080cde79585471a93d9499b9072eb5f.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"><br>&emsp;&emsp;发现有一个fromCharCode，查一下发现是接受一个指定的 Unicode 值，然后返回一个字符串。也就是不管输入什么就一直是那个数，将括号里的字符串复制一下，发现是url编码，解码后对应ASCII码表得出flag。</p>
+<h1 id="baby-web"><a href="#baby-web" class="headerlink" title="baby_web"></a>baby_web</h1><p><img src="https://img-blog.csdnimg.cn/e85790d40e604b4099e149e9c9992be5.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"><br>&emsp;&emsp;因为题目中提示初始页面，所以将后缀改为index.php，然后在网络中查看文件index.php。<br><img src="https://img-blog.csdnimg.cn/2c7ea17d6b77498ebe9fa1bc021a1211.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"><br>&emsp;&emsp;得出flag。 </p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title="0" data-url="http://link.hhtjim.com/163/425570952.mp3"></li>
+                        
+                    
+                        
+                            <li title="1" data-url="http://link.hhtjim.com/163/425570952.mp3"></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id="gitalk-container" class="comment link"
+		data-enable="false"
+        data-ae="false"
+        data-ci=""
+        data-cs=""
+        data-r=""
+        data-o=""
+        data-a=""
+        data-d="false"
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+</html>
