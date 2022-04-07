@@ -1,74 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>HTML学习-2</title>
-    <url>/2022/03/06/HTML%E5%AD%A6%E4%B9%A0-2/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2022/01/11/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>upload-labs和sql-labs环境搭建</title>
-    <url>/2022/02/06/upload-labs%E5%92%8Csql-labs%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
-    <content><![CDATA[<h2 id="一-upload-labs环境搭建"><a href="#一-upload-labs环境搭建" class="headerlink" title="一.upload-labs环境搭建"></a>一.upload-labs环境搭建</h2><p><a href="https://www.xp.cn/download.html"> phpstudy下载后直接安装就行了。</a></p>
-<p><a href="https://gitcode.net/mirrors/c0ny1/upload-labs?utm_source=csdn_github_accelerator"> upload-labs源代码 </a></p>
-<p><img src="https://img-blog.csdnimg.cn/43a6221fa9e24bddb43623379069fa9e.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
-<p>点这个黑色圈住的地方就行了，会直接下载成压缩包。<br>将解压后的文件放入phpstudy的名为WWW的文件中。</p>
-<p><img src="https://img-blog.csdnimg.cn/6461efad975941bda59c7de64870f671.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
-<p>然后将文件名字改为upload-labs。<br>接着在浏览器中输入<a href="http://127.0.0.1/upload-labs/%E3%80%82">http://127.0.0.1/upload-labs/。</a></p>
-<p><img src="https://img-blog.csdnimg.cn/0ecf05d4d3374f0595e6115a37467f52.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
-<p>页面为这样就成功了。</p>
-<h2 id="二-sql-labs环境搭建"><a href="#二-sql-labs环境搭建" class="headerlink" title="二.sql-labs环境搭建"></a>二.sql-labs环境搭建</h2><p>和上面一样都要用到phpstudy。<br>然后是<a href="https://gitcode.net/mirrors/audi-1/sqli-labs?utm_source=csdn_github_accelerator"> sqli-lab源代码 </a></p>
-<p>和上面一样下载压缩包，解压后放在phpstudy的名为WWW的文件下</p>
-<p><img src="https://img-blog.csdnimg.cn/abcef782ea204a328d251396796b7c15.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
-<p>然后要对图中选中的文件进行修改</p>
-<p><img src="https://img-blog.csdnimg.cn/69faabf8ba37407ea3ead202a65b8af4.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
-<p>因为phpstudy默认的mysql数据库地址是“127.0.0.1 或 localhost”，用户名和密码都是”root”。这里主要是修改’$dbpass‘为root，即自己的数据库密码，默认为root，修改后自然是需要保存文件的。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"> </span><br><span class="line">//give your mysql connection username n password</span><br><span class="line"> </span><br><span class="line"><span class="variable">$dbuser</span> =<span class="string">&#x27;root&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="variable">$dbpass</span> =<span class="string">&#x27;root&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="variable">$dbname</span> =<span class="string">&quot;security&quot;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="variable">$host</span> = <span class="string">&#x27;localhost&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="variable">$dbname1</span> = <span class="string">&quot;challenges&quot;</span>;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>改成这个样子就行，好像就只是加个root。接着浏览器打开<a href="http://127.0.0.1/sqli-labs-master/%E8%AE%BF%E9%97%AE%E9%A6%96%E9%A1%B5%EF%BC%8C%E8%BF%99%E4%B8%AA%E6%A0%B7%E5%AD%90%E5%B0%B1ok%E4%BA%86%E3%80%82">http://127.0.0.1/sqli-labs-master/访问首页，这个样子就ok了。</a></p>
-<p><img src="https://img-blog.csdnimg.cn/e5646e2fa82e4c7e9fe4421b4b7d71f2.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
-]]></content>
-      <tags>
-        <tag>环境搭建</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>web练习题目</title>
-    <url>/2022/03/13/web%E7%BB%83%E4%B9%A0%E9%A2%98%E7%9B%AE/</url>
-    <content><![CDATA[<h1 id="xff-referer"><a href="#xff-referer" class="headerlink" title="xff_referer"></a>xff_referer</h1><hr>
-<p><img src="https://img-blog.csdnimg.cn/b721f325fef04dd582ba8f74ef62cabf.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"><br><br>题目中提到了xff和referer，由于并不了解所以百度一下看看基本意思。</p>
-<blockquote>
-<p><strong>X-Forwarded-For</strong>(XFF)是用来识别通过HTTP代理或负载均衡方式连接到Web服务器的客户端最原始的IP地址的HTTP请求头字段。<br><br> <strong>HTTP Referer</strong>是header的一部分，当浏览器向web服务器发送请求的时候，一般会带上Referer，告诉服务器该网页是从哪个页面链接过来的，服务器因此可以获得一些信息用于处理。</p>
-</blockquote>
-<p> &emsp;&emsp;简单地说，xff是告诉服务器当前请求者的最终ip的http请求头字段通常可以直接通过修改http头中的X-Forwarded-For字段来仿造请求的最终ip。referer就是告诉服务器当前访问者是从哪个url地址跳转到自己的，跟xff一样，referer也可直接修改。<br><br>&emsp;&emsp;所以使用burp对页面进行拦截<br><img src="https://img-blog.csdnimg.cn/6b19443e051f402e8c796df73d971e17.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"><br>&emsp;&emsp;页面也说明了ip地址，所以在下面加上<br><br><img src="https://img-blog.csdnimg.cn/7199c217b2524a1a86a046c5a80da976.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"><br><br>&emsp;&emsp;然后forward，页面发生改变<br><img src="https://img-blog.csdnimg.cn/24998077b98d4303ba531dfdce9353a3.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"><br><br>&emsp;&emsp;所以抓包,然后在下面加上</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">X-Forwarded-For:123.123.123.123</span><br><span class="line">Referer:https://www.google.com</span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdnimg.cn/fd3ab8c8c1e54099b6e95065156de48a.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"><br><br>&emsp;&emsp;发送，得出flag。</p>
-<h1 id="simple-js"><a href="#simple-js" class="headerlink" title="simple_js"></a>simple_js</h1><hr>
-<p>打开网页发现需要输入密码，因为不知道，所以随便输入 。<br><img src="https://img-blog.csdnimg.cn/324a51f2a48649229531facd571c145e.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"><br><br>结果肯定是错了，查看源代码。<br><img src="https://img-blog.csdnimg.cn/9080cde79585471a93d9499b9072eb5f.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"><br>&emsp;&emsp;发现有一个fromCharCode，查一下发现是接受一个指定的 Unicode 值，然后返回一个字符串。也就是不管输入什么就一直是那个数，将括号里的字符串复制一下，发现是url编码，解码后对应ASCII码表得出flag。</p>
-<h1 id="baby-web"><a href="#baby-web" class="headerlink" title="baby_web"></a>baby_web</h1><p><img src="https://img-blog.csdnimg.cn/e85790d40e604b4099e149e9c9992be5.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"><br>&emsp;&emsp;因为题目中提示初始页面，所以将后缀改为index.php，然后在网络中查看文件index.php。<br><img src="https://img-blog.csdnimg.cn/2c7ea17d6b77498ebe9fa1bc021a1211.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"><br>&emsp;&emsp;得出flag。 </p>
-]]></content>
-      <tags>
-        <tag>题解</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>HTML学习</title>
     <url>/2022/03/03/HTML%E5%AD%A6%E4%B9%A0/</url>
     <content><![CDATA[<h1 id="一、web标准的构成"><a href="#一、web标准的构成" class="headerlink" title="一、web标准的构成"></a>一、web标准的构成</h1><hr>
@@ -141,6 +73,118 @@
       </tags>
   </entry>
   <entry>
+    <title>Hello World</title>
+    <url>/2022/01/11/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>HTML学习-2</title>
+    <url>/2022/03/06/HTML%E5%AD%A6%E4%B9%A0-2/</url>
+    <content><![CDATA[<p>接上一次的博客继续写，这一次主要是一些标签总结，学到表格应该就差不多了。</p>
+<h1 id="布局标签"><a href="#布局标签" class="headerlink" title="布局标签"></a>布局标签</h1><hr>
+<table>
+<thead>
+<tr>
+<th>标签</th>
+<th>格式</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>标题</td>
+<td>&#60;h1&#62;…&#60;/h1&#62;</td>
+<td>html提供了6个等级的网页标题</td>
+</tr>
+<tr>
+<td>段落</td>
+<td>&#60;p&#62;…&#60;/p&#62;</td>
+<td>用于定义一个段落</td>
+</tr>
+<tr>
+<td>换行</td>
+<td>&#60;br /&#62;</td>
+<td>放在后面，然后换行</td>
+</tr>
+<tr>
+<td>&#60;div&#52;</td>
+<td>&#60;div&#62;</td>
+<td>用来布局，但是现在一行只能放一个<div></td>
+</tr>
+<tr>
+<td>&#60;span&#62;</td>
+<td>&#60;span style=”color:blue”&#62;蓝色&#60;/span&#62;</td>
+<td>可以对文本中的一部分染色，没有固定的格式表现</td>
+</tr>
+</tbody></table>
+<h1 id="对字体进行修改的标签"><a href="#对字体进行修改的标签" class="headerlink" title="对字体进行修改的标签"></a>对字体进行修改的标签</h1><hr>
+<table>
+<thead>
+<tr>
+<th>标签</th>
+<th>格式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>加粗</td>
+<td>&#60;strong&#62;…&#60;/strong&#62;或&#60;b&#62;…&#60;/b&#62;</td>
+</tr>
+<tr>
+<td>删除线</td>
+<td>&#60;del&#62;…&#60;/del&#62;或&#60;s&#62;…&#60;/s&#62;</td>
+</tr>
+<tr>
+<td>下划线</td>
+<td>&#60;ins&#62;…&#60;/ins&#62;或&#60;u&#62;…&#60;/u&#62;</td>
+</tr>
+<tr>
+<td>倾斜</td>
+<td>&#60;em&#62;…&#60;/em&#62;或&#60;i&#62;…&#60;/i&#62;</td>
+</tr>
+</tbody></table>
+<h1 id="链接标签"><a href="#链接标签" class="headerlink" title="链接标签"></a>链接标签</h1><hr>
+<h2 id="图像标签"><a href="#图像标签" class="headerlink" title="图像标签"></a>图像标签</h2><blockquote>
+<p>&#60;img src=”图像URL”/&gt;<br><br>src是<img>标签的必须属性，用于指定图像文字的路径与名称。</p>
+</blockquote>
+<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p>&lt;a herf=”网址“&gt;替换文字&lt;/a&#62;</p>
+<h2 id="锚点标签"><a href="#锚点标签" class="headerlink" title="锚点标签"></a>锚点标签</h2><p>&#60;!–xxx–&gt;</p>
+<h2 id="表格标签"><a href="#表格标签" class="headerlink" title="表格标签"></a>表格标签</h2><p>基本语法<br><br>&emsp;&#60;table&gt;<br><br>   &emsp;&emsp; &#60;tr&gt;<br><br>       &emsp;&emsp;&#60;td&gt;内容&#60;/td&gt;<br><br>        &emsp;&emsp; &emsp;….<br><br>     &emsp;&emsp;&#60;/tr&gt;<br><br>      &emsp; &emsp;&emsp;….<br><br>&#60;/table&gt;</p>
+<table>
+<thead>
+<tr>
+<th>&#60;table&gt;&#60;/table&gt;</th>
+<th>定义表格的标签</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&#60;tr&gt;&#60;/tr&gt;</td>
+<td>定义表格中的行，必须嵌套在&#60;table&gt;&#60;/table&gt;</td>
+</tr>
+<tr>
+<td>&#60;td&gt;&#60;/td&gt;</td>
+<td>用于定义表格中的单元格，在&#60;tr&gt;&#60;/tr&gt;中</td>
+</tr>
+<tr>
+<td>&#60;th&gt;&#60;/th&gt;</td>
+<td>用于表示表头和&#60;tr&gt;&#60;/tr&gt;位置一样，放在前面</td>
+</tr>
+</tbody></table>
+<p>&emsp;&emsp; 看以前学姐的学习大纲是学到表格这里就行了，这两天写题也是可以看懂页面的源代码了，继续努力学习php，还是太重要了。</p>
+]]></content>
+  </entry>
+  <entry>
     <title>upload-labs前三关通关详解</title>
     <url>/2022/02/13/upload-labs%E5%89%8D%E4%B8%89%E5%85%B3%E9%80%9A%E5%85%B3%E8%AF%A6%E8%A7%A3/</url>
     <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/aebf8b274aaa45cd81450c62515979a0.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
@@ -177,6 +221,52 @@
 <p>&emsp;&emsp;抓包上传后可以 将图片用另一个页面打开</p>
 <p><img src="https://img-blog.csdnimg.cn/1ad4ca38bccd47dba7f8a15305103c33.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
 <p>&emsp;&emsp;可以看出来这个页面就是我图片中的内容</p>
+]]></content>
+      <tags>
+        <tag>题解</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>upload-labs和sql-labs环境搭建</title>
+    <url>/2022/02/06/upload-labs%E5%92%8Csql-labs%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<h2 id="一-upload-labs环境搭建"><a href="#一-upload-labs环境搭建" class="headerlink" title="一.upload-labs环境搭建"></a>一.upload-labs环境搭建</h2><p><a href="https://www.xp.cn/download.html"> phpstudy下载后直接安装就行了。</a></p>
+<p><a href="https://gitcode.net/mirrors/c0ny1/upload-labs?utm_source=csdn_github_accelerator"> upload-labs源代码 </a></p>
+<p><img src="https://img-blog.csdnimg.cn/43a6221fa9e24bddb43623379069fa9e.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
+<p>点这个黑色圈住的地方就行了，会直接下载成压缩包。<br>将解压后的文件放入phpstudy的名为WWW的文件中。</p>
+<p><img src="https://img-blog.csdnimg.cn/6461efad975941bda59c7de64870f671.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
+<p>然后将文件名字改为upload-labs。<br>接着在浏览器中输入<a href="http://127.0.0.1/upload-labs/%E3%80%82">http://127.0.0.1/upload-labs/。</a></p>
+<p><img src="https://img-blog.csdnimg.cn/0ecf05d4d3374f0595e6115a37467f52.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
+<p>页面为这样就成功了。</p>
+<h2 id="二-sql-labs环境搭建"><a href="#二-sql-labs环境搭建" class="headerlink" title="二.sql-labs环境搭建"></a>二.sql-labs环境搭建</h2><p>和上面一样都要用到phpstudy。<br>然后是<a href="https://gitcode.net/mirrors/audi-1/sqli-labs?utm_source=csdn_github_accelerator"> sqli-lab源代码 </a></p>
+<p>和上面一样下载压缩包，解压后放在phpstudy的名为WWW的文件下</p>
+<p><img src="https://img-blog.csdnimg.cn/abcef782ea204a328d251396796b7c15.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
+<p>然后要对图中选中的文件进行修改</p>
+<p><img src="https://img-blog.csdnimg.cn/69faabf8ba37407ea3ead202a65b8af4.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
+<p>因为phpstudy默认的mysql数据库地址是“127.0.0.1 或 localhost”，用户名和密码都是”root”。这里主要是修改’$dbpass‘为root，即自己的数据库密码，默认为root，修改后自然是需要保存文件的。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"> </span><br><span class="line">//give your mysql connection username n password</span><br><span class="line"> </span><br><span class="line"><span class="variable">$dbuser</span> =<span class="string">&#x27;root&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="variable">$dbpass</span> =<span class="string">&#x27;root&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="variable">$dbname</span> =<span class="string">&quot;security&quot;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="variable">$host</span> = <span class="string">&#x27;localhost&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="variable">$dbname1</span> = <span class="string">&quot;challenges&quot;</span>;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>改成这个样子就行，好像就只是加个root。接着浏览器打开<a href="http://127.0.0.1/sqli-labs-master/%E8%AE%BF%E9%97%AE%E9%A6%96%E9%A1%B5%EF%BC%8C%E8%BF%99%E4%B8%AA%E6%A0%B7%E5%AD%90%E5%B0%B1ok%E4%BA%86%E3%80%82">http://127.0.0.1/sqli-labs-master/访问首页，这个样子就ok了。</a></p>
+<p><img src="https://img-blog.csdnimg.cn/e5646e2fa82e4c7e9fe4421b4b7d71f2.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
+]]></content>
+      <tags>
+        <tag>环境搭建</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>web练习题目</title>
+    <url>/2022/03/13/web%E7%BB%83%E4%B9%A0%E9%A2%98%E7%9B%AE/</url>
+    <content><![CDATA[<h1 id="xff-referer"><a href="#xff-referer" class="headerlink" title="xff_referer"></a>xff_referer</h1><hr>
+<p><img src="https://img-blog.csdnimg.cn/b721f325fef04dd582ba8f74ef62cabf.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"><br><br>题目中提到了xff和referer，由于并不了解所以百度一下看看基本意思。</p>
+<blockquote>
+<p><strong>X-Forwarded-For</strong>(XFF)是用来识别通过HTTP代理或负载均衡方式连接到Web服务器的客户端最原始的IP地址的HTTP请求头字段。<br><br> <strong>HTTP Referer</strong>是header的一部分，当浏览器向web服务器发送请求的时候，一般会带上Referer，告诉服务器该网页是从哪个页面链接过来的，服务器因此可以获得一些信息用于处理。</p>
+</blockquote>
+<p> &emsp;&emsp;简单地说，xff是告诉服务器当前请求者的最终ip的http请求头字段通常可以直接通过修改http头中的X-Forwarded-For字段来仿造请求的最终ip。referer就是告诉服务器当前访问者是从哪个url地址跳转到自己的，跟xff一样，referer也可直接修改。<br><br>&emsp;&emsp;所以使用burp对页面进行拦截<br><img src="https://img-blog.csdnimg.cn/6b19443e051f402e8c796df73d971e17.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"><br>&emsp;&emsp;页面也说明了ip地址，所以在下面加上<br><br><img src="https://img-blog.csdnimg.cn/7199c217b2524a1a86a046c5a80da976.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"><br><br>&emsp;&emsp;然后forward，页面发生改变<br><img src="https://img-blog.csdnimg.cn/24998077b98d4303ba531dfdce9353a3.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"><br><br>&emsp;&emsp;所以抓包,然后在下面加上</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">X-Forwarded-For:123.123.123.123</span><br><span class="line">Referer:https://www.google.com</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/fd3ab8c8c1e54099b6e95065156de48a.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"><br><br>&emsp;&emsp;发送，得出flag。</p>
+<h1 id="simple-js"><a href="#simple-js" class="headerlink" title="simple_js"></a>simple_js</h1><hr>
+<p>打开网页发现需要输入密码，因为不知道，所以随便输入 。<br><img src="https://img-blog.csdnimg.cn/324a51f2a48649229531facd571c145e.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"><br><br>结果肯定是错了，查看源代码。<br><img src="https://img-blog.csdnimg.cn/9080cde79585471a93d9499b9072eb5f.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"><br>&emsp;&emsp;发现有一个fromCharCode，查一下发现是接受一个指定的 Unicode 值，然后返回一个字符串。也就是不管输入什么就一直是那个数，将括号里的字符串复制一下，发现是url编码，解码后对应ASCII码表得出flag。</p>
+<h1 id="baby-web"><a href="#baby-web" class="headerlink" title="baby_web"></a>baby_web</h1><hr>
+<p><img src="https://img-blog.csdnimg.cn/e85790d40e604b4099e149e9c9992be5.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"><br>&emsp;&emsp;因为题目中提示初始页面，所以将后缀改为index.php，然后在网络中查看文件index.php。<br><img src="https://img-blog.csdnimg.cn/2c7ea17d6b77498ebe9fa1bc021a1211.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"><br>&emsp;&emsp;得出flag。 </p>
 ]]></content>
       <tags>
         <tag>题解</tag>
