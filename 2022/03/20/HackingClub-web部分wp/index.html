@@ -1,0 +1,222 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>HackingClub---web部分wp - S@Kura</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Fechin,"> 
+    <meta name="description" content="
+
+Find my Friend
+&amp;emsp;&amp;emsp;这道题其实就是签到题，不过因为我的基本功不太像话，所以没有想到data.txt，最后还是看了提示才知道是加上data.txt为后缀，然后ct,"> 
+    <meta name="author" content="John Doe"> 
+    <link rel="alternative" href="atom.xml" title="S@Kura" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+    
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="HackingClub---web部分wp - S@Kura"/>
+    <meta name="twitter:description" content="
+
+Find my Friend
+&amp;emsp;&amp;emsp;这道题其实就是签到题，不过因为我的基本功不太像话，所以没有想到data.txt，最后还是看了提示才知道是加上data.txt为后缀，然后ct,"/>
+    
+    
+    
+    
+    <meta property="og:site_name" content="S@Kura"/>
+    <meta property="og:type" content="object"/>
+    <meta property="og:title" content="HackingClub---web部分wp - S@Kura"/>
+    <meta property="og:description" content="
+
+Find my Friend
+&amp;emsp;&amp;emsp;这道题其实就是签到题，不过因为我的基本功不太像话，所以没有想到data.txt，最后还是看了提示才知道是加上data.txt为后缀，然后ct,"/>
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">S@Kura</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://example.com"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">HackingClub---web部分wp</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">HackingClub---web部分wp</h1>
+        <div class="stuff">
+            <span>三月 20, 2022</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/HackingClub/" rel="tag">HackingClub</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <!--Find my Friend-->
+
+<h2 id="Find-my-Friend"><a href="#Find-my-Friend" class="headerlink" title="Find my Friend"></a>Find my Friend</h2><hr>
+<p><img src="https://img-blog.csdnimg.cn/cbd4e69e12c84f1db123ca08c458e7a3.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"><br><br>&emsp;&emsp;这道题其实就是签到题，不过因为我的基本功不太像话，所以没有想到data.txt，最后还是看了提示才知道是加上data.txt为后缀，然后ctrl+f搜索flag找到答案。<br><img src="https://img-blog.csdnimg.cn/b471da2cda814100b1c110bc71b9c2e7.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"><br></p>
+<h2 id="Easy-yinkelude"><a href="#Easy-yinkelude" class="headerlink" title="Easy-yinkelude"></a>Easy-yinkelude</h2><hr>
+<p><img src="https://img-blog.csdnimg.cn/8be798ffec2a466288ab371aef2ba1b1.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"><br><br> &emsp;&emsp; 这一道题是文件包含类型，知道大致方向就好写了。先看这一段php代码，意思基本上是用POST上传file的内容，<font color="#dd0000"><strong>class</strong></font>定义一个hello类，new class定义一个匿名类；然后shit=serialize(a)，最后如果<strong>file_get_contents($file)==$shit</strong>,则得出flag。</p>
+<h3 id="serialize"><a href="#serialize" class="headerlink" title="serialize()"></a>serialize()</h3><blockquote>
+<p><strong>serialize()</strong> 函数用于序列化对象或数组，并返回一个字符串。<br>serialize() 函数序列化对象后，可以很方便的将它传递给其他需要它的地方，且其类型和结构不会改变。<br>如果想要将已序列化的字符串变回 PHP 的值，可使用 unserialize()。</p>
+</blockquote>
+<h3 id="file-get-contents"><a href="#file-get-contents" class="headerlink" title="file_get_contents()"></a>file_get_contents()</h3><blockquote>
+<p><strong>file_get_contents()</strong> 把整个文件读入一个字符串中。<br>该函数是用于把文件的内容读入到一个字符串中的首选方法。如果服务器操作系统支持，还会使用内存映射技术来增强性能。</p>
+</blockquote>
+<p>&emsp;&emsp;知道这两个函数的意思后就知道了应该怎么做。不过我并不知道怎么让本地文件上传到题目，所以我去搜了一下发现还有另一种方法。<a target="_blank" rel="noopener" href="https://bbs.zxsctf.com/forum.php?mod=viewthread&tid=92&highlight=yinkelude">借鉴的博客</a></p>
+<h3 id="data-伪协议"><a href="#data-伪协议" class="headerlink" title="data://伪协议"></a>data://伪协议</h3><blockquote>
+<p>data://伪协议是一个数据流构造器，将读取后面base编码字符串后解码的数据作为数据流的输入，所以构造data://text/plain;base64,xxxx 即可将文件内容改为base64解密的内容<br>因此我们先得到反序列化后的值 。 <br></p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/eeb5d59a18d3468e9bdedd37454cf16b.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"><br></p>
+<p>将题目中的源码改一下，输出Tzo1OiJoZWxsbyI6MTp7czo0OiJmYWxnIjtzOjY6InRxbDEyMyI7fQ== <br><br><font color="#dd0000"><strong>payload:</strong></font>data://text/plain;base64,Tzo1OiJoZWxsbyI6MTp7czo0OiJmYWxnIjtzOjY6InRxbDEyMyI7fQ==<br><br>使用burp抓包 ，然后右键send to repeater，接着对内容进行修改，改为post包。<br><br>要注意两点：<font color="#dd0000"><strong>1.将传参方式改为post 2.添加Content-type: application/x-www-form-urlencoded</strong></font><br></p>
+<p><img src="https://img-blog.csdnimg.cn/0ed66c0586db444f8517d920a2ce60f0.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"><br><br> &emsp;&emsp;send，然后得出flag。<br><br> <img src="https://img-blog.csdnimg.cn/694fbe1e20304c9facf8de395cf8b29d.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
+<h2 id="XSS也就这样嘛？！"><a href="#XSS也就这样嘛？！" class="headerlink" title="XSS也就这样嘛？！"></a>XSS也就这样嘛？！</h2><hr>
+<p><img src="https://img-blog.csdnimg.cn/875bc9fc840a4cf1a06f50e930363ea2.png"><br><br>&emsp;&emsp;知道了本题和alert函数有关，但是我的xss还有Javascript还没有怎么学习，了解甚少，所以这道题完全是依葫芦画瓢，所以xss还有js要开始学习了。<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_51558360/article/details/114378503?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164836145816780265486373%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fall.%2522%257D&request_id=164836145816780265486373&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_ecpm_v1~rank_v31_ecpm-1-114378503.142%5Ev5%5Econtrol,143%5Ev6%5Eregister&utm_term=buuctf+%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95+%5B%E7%AC%AC%E4%BA%8C%E7%AB%A0+web%E8%BF%9B%E9%98%B6%5DXSS%E9%97%AF%E5%85%B3&spm=1018.2226.3001.4187">参考的博客</a></p>
+<h3 id="pass-1"><a href="#pass-1" class="headerlink" title="pass-1"></a>pass-1</h3><hr>
+<p>&emsp;&emsp;使用hackbar，将用户名改成这样子，然后过关。<br><br><code>?username=&lt;script&gt;alert(1)&lt;/script&gt;</code></p>
+<h3 id="pass-2"><a href="#pass-2" class="headerlink" title="pass-2"></a>pass-2</h3><hr>
+<p><img src="https://img-blog.csdnimg.cn/a98c5aa9a10243699748573beb438141.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"><br><br>&emsp;&emsp;查看源码，我们可以看到username被escape函数编码了，基本上就很难绕过。可以对username下手。<br><br><code>?username=&#39;;alert(1);//</code><br><br>这样username就是这样：<br><br>&emsp;var username = ‘’;alert(1);//’;    成功执行了alert(1)，过关。</p>
+<h3 id="pass-3"><a href="#pass-3" class="headerlink" title="pass-3"></a>pass-3</h3><hr>
+<p>&emsp;&emsp;输入上一关的payload，查看源码发现这次过滤了单引号，那就输入两个单引号。过关。<br><img src="https://img-blog.csdnimg.cn/36580b82b9b740128f4b7b3e604e1359.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"><br><br><code>?username=&#39;&#39;;alert(1);//</code></p>
+<h3 id="pass-4"><a href="#pass-4" class="headerlink" title="pass-4"></a>pass-4</h3><hr>
+<p><img src="https://img-blog.csdnimg.cn/f8b85faf355840eca2c957ceb9f9e4a9.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"><br></p>
+<h4 id="伪链接"><a href="#伪链接" class="headerlink" title="伪链接"></a>伪链接</h4><p>&emsp;&emsp;javascript:alert(1)，浏览器会把javascript后面的那一段内容当做代码，直接在当前页面执行。<br>代码中接收jumpUrl作为跳转url,所以，<br><br><code>/level4?jumpUrl=javascript:alert(1)</code><br><br>然后等待10秒过关。</p>
+<h3 id="pass-5"><a href="#pass-5" class="headerlink" title="pass-5"></a>pass-5</h3><hr>
+<p><img src="https://img-blog.csdnimg.cn/06ed9784eaf84e8dacd564411dcdcb98.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"><br><br> 限制1<br><br>&emsp;if(getQueryVariable(‘autosubmit’) !== false){ …… }<br><br>限制2<br><br>&emsp;autoForm.action = (getQueryVariable(‘action’) == false) ? location.href :getQueryVariable(‘action’);<br><br><code>/level5?autosubmit=1&amp;action=javascript:alert(1)</code></p>
+<h3 id="pass-6"><a href="#pass-6" class="headerlink" title="pass-6"></a>pass-6</h3><hr>
+<p>&emsp;&emsp;我们看一下这个环境用的是哪个模板，发现是AngularJS<br>首先参考下面这个网页：<br><a target="_blank" rel="noopener" href="https://nosec.org/home/detail/4153.html">AngularJS客户端模板注入（XSS）</a><br><br>&emsp;&emsp;看完后就是模板注入XSS有了了解，不过由于我们的Angular版本是1.4.6，存在沙箱，因此要去搜索这个版本的Angular的沙箱逃逸的方法：<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/4638">AngularJS Sandbox Bypasses</a><br><br>从中得知的逃逸的办法：<br><br><code>?username=&#123;&#123;'a'.constructor.prototype.charAt=[].join;$eval('x=1&#125; &#125; &#125;;alert(1)//');&#125;&#125;</code></p>
+<p>&emsp;&emsp;然后过关，得出flag。<br><br><img src="https://img-blog.csdnimg.cn/1da76f2776c542f38fdd54169d4a5926.png"></p>
+<p>&emsp;&emsp;这次比赛让我意识到自己还有许多不足，web仍未修成，你我皆需努力。接下来就要对xss还有js进行学习，避免看题时一脸懵逼😵。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title="0" data-url="http://link.hhtjim.com/163/425570952.mp3"></li>
+                        
+                    
+                        
+                            <li title="1" data-url="http://link.hhtjim.com/163/425570952.mp3"></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id="gitalk-container" class="comment link"
+		data-enable="false"
+        data-ae="false"
+        data-ci=""
+        data-cs=""
+        data-r=""
+        data-o=""
+        data-a=""
+        data-d="false"
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+</html>
