@@ -1,0 +1,207 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SQL注入点判断及万能密码 - S@Kura</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Fechin,"> 
+    <meta name="description" content="SQL注入漏洞的类型
+1.单引号判断http://www.xxx.com/xxx.asp?id=10&amp;#39; 如果出现错误提示，则该网站可能就存在注入漏洞。
+2.and判断http://www.x,"> 
+    <meta name="author" content="John Doe"> 
+    <link rel="alternative" href="atom.xml" title="S@Kura" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+    
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="SQL注入点判断及万能密码 - S@Kura"/>
+    <meta name="twitter:description" content="SQL注入漏洞的类型
+1.单引号判断http://www.xxx.com/xxx.asp?id=10&amp;#39; 如果出现错误提示，则该网站可能就存在注入漏洞。
+2.and判断http://www.x,"/>
+    
+    
+    
+    
+    <meta property="og:site_name" content="S@Kura"/>
+    <meta property="og:type" content="object"/>
+    <meta property="og:title" content="SQL注入点判断及万能密码 - S@Kura"/>
+    <meta property="og:description" content="SQL注入漏洞的类型
+1.单引号判断http://www.xxx.com/xxx.asp?id=10&amp;#39; 如果出现错误提示，则该网站可能就存在注入漏洞。
+2.and判断http://www.x,"/>
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">S@Kura</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://example.com"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">SQL注入点判断及万能密码</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">SQL注入点判断及万能密码</h1>
+        <div class="stuff">
+            <span>五月 08, 2022</span>
+            
+
+        </div>
+        <div class="content markdown">
+            <h1 id="SQL注入漏洞的类型"><a href="#SQL注入漏洞的类型" class="headerlink" title="SQL注入漏洞的类型"></a>SQL注入漏洞的类型</h1><hr>
+<h3 id="1-单引号判断"><a href="#1-单引号判断" class="headerlink" title="1.单引号判断"></a>1.单引号判断</h3><p><a target="_blank" rel="noopener" href="http://www.xxx.com/xxx.asp?id=10&#39;">http://www.xxx.com/xxx.asp?id=10&#39;</a> 如果出现错误提示，则该网站可能就存在注入漏洞。</p>
+<h3 id="2-and判断"><a href="#2-and判断" class="headerlink" title="2.and判断"></a>2.and判断</h3><p><a target="_blank" rel="noopener" href="http://www.xxx.com/xxx.asp?id=10&#39;and">http://www.xxx.com/xxx.asp?id=10&#39;and</a> 1=1这个条件永远都是真的，所以当然返回是正常页面<br><br> <a target="_blank" rel="noopener" href="http://www.xxx.com/xxx.asp?id=10&#39;and">http://www.xxx.com/xxx.asp?id=10&#39;and</a> 1=2如果报错那说明存在注入漏洞，还要看报的什么错，不可能报任何错都有注入漏洞的。</p>
+<h3 id="3-Or判断"><a href="#3-Or判断" class="headerlink" title="3.Or判断"></a>3.Or判断</h3><p>or跟and判断方法不一样的，and是提交返回错误才有注入点，而OR是提交返回正确有注入点<br><br><a target="_blank" rel="noopener" href="http://www.xxx.com/xxx.asp?id=10&#39;or">http://www.xxx.com/xxx.asp?id=10&#39;or</a> 1=1<br>    <a target="_blank" rel="noopener" href="http://www.xxx.com/xxx.asp?id=10&#39;or">http://www.xxx.com/xxx.asp?id=10&#39;or</a> 1=2</p>
+<h3 id="4-xor判断"><a href="#4-xor判断" class="headerlink" title="4.xor判断"></a>4.xor判断</h3><p>xor后面的语句如果是正确的，则返回错误页面，如果是错误，则返回正确页面，说明存在注入点。<br><br> <a target="_blank" rel="noopener" href="http://www.xxx.com/xxx.asp?id=10&#39;xor">http://www.xxx.com/xxx.asp?id=10&#39;xor</a> 1=1<br><a target="_blank" rel="noopener" href="http://www.xxx.com/xxx.asp?id=10&#39;xor">http://www.xxx.com/xxx.asp?id=10&#39;xor</a> 1=2</p>
+<h3 id="5-加减号数字判断"><a href="#5-加减号数字判断" class="headerlink" title="5.加减号数字判断"></a>5.加减号数字判断</h3><p>返回的页面和前面的页面相同，加上-1，返回错误页面，则也表示存在注入漏洞。<br><a target="_blank" rel="noopener" href="http://www.xxx.com/xxx.asp?id=10-0">http://www.xxx.com/xxx.asp?id=10-0</a><br><a target="_blank" rel="noopener" href="http://www.xxx.com/xxx.asp?id=10-1">http://www.xxx.com/xxx.asp?id=10-1</a><br><a target="_blank" rel="noopener" href="http://www.xxx.com/xxx.asp?id=10+1">http://www.xxx.com/xxx.asp?id=10+1</a><br><br>and,or,xor等判断可以参考这三种逻辑运算的规律进行理解</p>
+<pre><code> sql注入漏洞通常为2种
+数字型
+字符型
+</code></pre>
+<h2 id="1-数字型判断"><a href="#1-数字型判断" class="headerlink" title="1.数字型判断"></a>1.数字型判断</h2><hr>
+<p>当输入的参 x 为整型时，通常 abc.php 中 Sql 语句类型大致如下：<font color="#dd0000"><strong>select * from &lt;表名&gt; where id = x</strong></font> 这种类型可以使用经典的 and 1=1 和 and 1=2 来判断：</p>
+<ul>
+<li>Url 地址中输入 <a target="_blank" rel="noopener" href="http://xxx/abc.php?id=">http://xxx/abc.php?id=</a> x and 1=1 页面依旧运行正常，继续进行下一步。</li>
+<li>Url 地址中继续输入 <a target="_blank" rel="noopener" href="http://xxx/abc.php?id=">http://xxx/abc.php?id=</a> x and 1=2 页面运行错误，则说明此 Sql 注入为数字型注入。</li>
+</ul>
+<blockquote>
+<p>我们输入的是 x and 1=1 和x and 1=2<br><br>语句就是这样：<br><br>select* from …… where id=x and 1=1<br><br>select* from …… where id=x and 1=2<br><br>and左边的x是返回成功的，因为如果不存在后面也没法进行，而1=1是成立的，所以页面运行正常。如果是1=2，不成立，同时and语句的判断逻辑是只要有一个不成立，就返回失败，所以运行错误。</p>
+</blockquote>
+<h2 id="2-字符型判断"><a href="#2-字符型判断" class="headerlink" title="2.字符型判断"></a>2.字符型判断</h2><hr>
+<p>当输入的参 x 为字符型时，通常 abc.php 中 SQL 语句类型大致如下：<font color="#dd0000"><strong>select * from &lt;表名&gt; where id = ‘x’</strong></font>这种类型我们同样可以使用 and ‘1’=’1 和 and ‘1’=’2来判断。</p>
+<blockquote>
+<p>这里就使上面的数字型变为了字符型<br><br>而语句则是<br><br>select * from &lt;表名&gt; where id = ‘x’ and ‘1’=’1’<br><br>这时候sql已经闭合了<br><br>还是一样的，这里and的左边是一定成立的，而and右边也是一样的成立，所以and逻辑之后，整个语句返回成功<br><br>同理可知如果后面是1’=’2就会返回失败，而且这里不一定非要是1或者2，因为是字符型，所以我们可以输入任何字符，如a’=’a,a’=’b</p>
+</blockquote>
+<h1 id="SQL注入–万能密码"><a href="#SQL注入–万能密码" class="headerlink" title="SQL注入–万能密码"></a>SQL注入–万能密码</h1><hr>
+<p><img src="https://img-blog.csdnimg.cn/08f9d7e731ee4c6da448ffe084233642.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU0BLdXJh,size_20,color_FFFFFF,t_70,g_se,x_16"><br>万能密码类似形式 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">“or&quot;a”=&quot;a</span><br><span class="line">&#x27;)or(‘a’=&#x27;a</span><br><span class="line">&quot;)or(“a”=&quot;a</span><br><span class="line">‘or 1=1–</span><br><span class="line">“or 1=1–</span><br><span class="line">&#x27;or”=’</span><br><span class="line">&#x27;or 1=1%00</span><br><span class="line">&#x27;or 1=1/</span><br><span class="line">admin’ or 1=1/*</span><br></pre></td></tr></table></figure>
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title="0" data-url="http://link.hhtjim.com/163/425570952.mp3"></li>
+                        
+                    
+                        
+                            <li title="1" data-url="http://link.hhtjim.com/163/425570952.mp3"></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id="gitalk-container" class="comment link"
+		data-enable="false"
+        data-ae="false"
+        data-ci=""
+        data-cs=""
+        data-r=""
+        data-o=""
+        data-a=""
+        data-d="false"
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+</html>
